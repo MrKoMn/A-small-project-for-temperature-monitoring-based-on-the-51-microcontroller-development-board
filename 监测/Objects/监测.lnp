@@ -1,0 +1,7 @@
+".\Objects\STARTUP.obj",
+".\Objects\mian.obj",
+".\Objects\delay.obj",
+".\Objects\ds18.obj",
+".\Objects\display.obj" 
+TO ".\Objects\¼à²â" 
+PRINT(".\Listings\¼à²â.m51")

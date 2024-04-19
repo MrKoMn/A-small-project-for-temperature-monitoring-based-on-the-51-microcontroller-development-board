@@ -1,0 +1,115 @@
+C51 COMPILER V9.60.0.0   DISPLAY                                                           07/08/2022 12:11:56 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE DISPLAY
+OBJECT MODULE PLACED IN .\Objects\display.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE display.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\d
+                    -isplay.lst) TABS(2) OBJECT(.\Objects\display.obj)
+
+line level    source
+
+   1          #include "define.h"
+   2          
+   3          void writeCon(u8 con){ //写控制命令
+   4   1        RS =0;
+   5   1        RW =0;
+   6   1        EN =0;
+   7   1        P0 = con;
+   8   1        delayms(1);
+   9   1        EN =1;
+  10   1        delayms(1);
+  11   1        EN =0;
+  12   1      }
+  13          
+  14          void writeData(u8 dat){ //写入数据
+  15   1        RS =1;
+  16   1        RW =0;
+  17   1        EN =0;
+  18   1        P0 =dat;
+  19   1        delayms(1);
+  20   1        EN =1;
+  21   1        delayms(1);
+  22   1        EN =0;
+  23   1      }
+  24          
+  25          void init_ss1602(){      //初始化
+  26   1        writeCon(0x38);
+  27   1        writeCon(0x0c);
+  28   1        writeCon(0x06);
+  29   1        writeCon(0x01);
+  30   1      }
+  31          
+  32          void clear(){           //清屏
+  33   1         writeCon(0x01);
+  34   1      }
+  35          
+  36          
+  37          void display(u8 x,u8 y,u8 *str)
+  38          {
+  39   1      u8 i=0;
+  40   1        if(y>1||x>15)return;//行列参数不对则强制退出
+  41   1        if(y<1) //第 1 行显示
+  42   1          {
+  43   2            while(*str!='\0')//字符串是以'\0'结尾，只要前面有内容就显示
+  44   2            {
+  45   3              if(i<16-x)//如果字符长度超过第一行显示范围，则在第二行继续显示
+  46   3                  {
+  47   4                    writeCon(0x80+i+x);//第一行显示地址设置
+  48   4                  }
+  49   3              else
+  50   3                  {
+  51   4                    writeCon(0x40+0x80+i+x-16);//第二行显示地址设置
+  52   4                  }
+  53   3                  writeData(*str);//显示内容
+  54   3                  str++;//指针递增
+C51 COMPILER V9.60.0.0   DISPLAY                                                           07/08/2022 12:11:56 PAGE 2   
+
+  55   3                  i++;
+  56   3            }
+  57   2          }
+  58   1        else //第 2 行显示
+  59   1          {
+  60   2            while(*str!='\0')
+  61   2          {
+  62   3            if(i<16-x) //如果字符长度超过第二行显示范围，则在第一行继续显示
+  63   3              {
+  64   4                writeCon(0x80+0x40+i+x);
+  65   4              }
+  66   3            else
+  67   3              {
+  68   4                writeCon(0x80+i+x-16);
+  69   4              }
+  70   3              writeData(*str);
+  71   3              str++;
+  72   3              i++;
+  73   3            }
+  74   2          }
+  75   1        }
+  76          
+  77          
+  78          
+  79          
+  80          
+  81          
+  82          
+  83          
+  84          
+  85          
+  86          
+  87          
+  88          
+  89          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    251    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

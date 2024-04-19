@@ -1,0 +1,56 @@
+C51 COMPILER V9.60.0.0   SHOW                                                              07/04/2022 17:24:28 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SHOW
+OBJECT MODULE PLACED IN .\Objects\show.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE show.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\show
+                    -.lst) TABS(2) OBJECT(.\Objects\show.obj)
+
+line level    source
+
+   1          #include "define.h"
+   2          
+   3          
+   4           
+   5          void display(u8 dat[])
+   6          {
+   7   1        u8 i=0;
+   8   1        u8 temp=3;
+   9   1      
+  10   1        for(i=temp;i<8;i++)
+  11   1        {
+  12   2            switch(i)//位选
+  13   2          {
+  14   3            case 0: LSC=1;LSB=1;LSA=1;break;
+  15   3            case 1: LSC=1;LSB=1;LSA=0;break;
+  16   3            case 2: LSC=1;LSB=0;LSA=1;break;
+  17   3            case 3: LSC=1;LSB=0;LSA=0;break;
+  18   3            case 4: LSC=0;LSB=1;LSA=1;break;
+  19   3            case 5: LSC=0;LSB=1;LSA=0;break;
+  20   3            case 6: LSC=0;LSB=0;LSA=1;break;
+  21   3            case 7: LSC=0;LSB=0;LSA=0;break;
+  22   3          }
+  23   2          P0=dat[i-temp];//传送段选数据
+  24   2          delay10us(100);//延时
+  25   2          P0=0x00;
+  26   2        }
+  27   1      }
+  28          
+  29            
+  30          
+  31          
+  32          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    150    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
